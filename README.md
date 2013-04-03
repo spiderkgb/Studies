@@ -2,4 +2,4 @@
 Studies
 =======
 
-- Repository have all files to pratice all study
+- This repository contains practice files, to record the study
