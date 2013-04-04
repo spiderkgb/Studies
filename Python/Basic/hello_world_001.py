@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+-*- coding utf-8 -*-
 
 print("This is a example with python 3 to print a text")
 print("Use the comand print('text')")
