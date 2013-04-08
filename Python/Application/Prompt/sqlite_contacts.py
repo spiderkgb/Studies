@@ -6,16 +6,16 @@ DBconnect = sqlite3.connect('names.db')
 DBcommand = DBconnect.cursor()
 
 def menu():
-	print("This file example of SQLite to insert and consult ")
+	print("""This file example of SQLite to insert and consult 
 
-	print ("""\nWelcome to SQL Rec Name
+\nWelcome to SQL Rec Name
 With this program you can store your favorites names."
 
 Create by Antonio Thomacelli Gomes
 http://www.linuxresort.blogspot.com.br
 
+\nPress 1 - Use SQL RecName \nPress 2 - Show names \nPress 3 - To Exit\n
 	""")
-	print ("\nPress 1 - Use SQL RecName \nPress 2 - Show names \nPress 3 - To Exit\n")
 
 def clean():
 	os.system("clear")
@@ -47,9 +47,11 @@ while ( option != '3' ):
 			print("No names found, please insert one name first! \nTry again!")
 			
 		for line in DBcommand:
-			print(line)
+			print("_" *20 )
+			print("ID : %s \nNome : %s" % (line[0], line[1]))
+
 		cont()
-	
+
 	else:
 		print("ERROR: Invalid option, try again!")
 		cont()
