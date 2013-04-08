@@ -15,7 +15,7 @@ Create by Antonio Thomacelli Gomes
 http://www.linuxresort.blogspot.com.br
 
 	""")
-	print ("\nPress 1 - Use SQL RecName \nPress 2 - Show names \nPess 3 - To Exit\n")
+	print ("\nPress 1 - Use SQL RecName \nPress 2 - Show names \nPress 3 - To Exit\n")
 
 def clean():
 	os.system("clear")
@@ -41,13 +41,17 @@ while ( option != '3' ):
 			DBcommand.execute('create table names(id integer primary key, name varchar(20) );')
 		cont()
 	elif ( option == '2'):
-		DBcommand.execute('select * from names')
+		try:
+			DBcommand.execute('select * from names')
+		except:
+			print("No names found, please insert one name first! \nTry again!")
+			
 		for line in DBcommand:
 			print(line)
 		cont()
 	
 	else:
-		print("Nothing to do")
+		print("ERROR: Invalid option, try again!")
 		cont()
 	clean()	
 	menu()
