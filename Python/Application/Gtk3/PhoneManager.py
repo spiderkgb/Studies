@@ -13,12 +13,17 @@ Created by Antonio Thomacelli Gomes
 """)
 
 
-def ConnectDB(name='none', phone='none'):
-
+def ConnectDB(function='none',name='none', phone='none'):
  def Teste(name, phone):
-  print("Valor Inserido: %s e %s" % ( name, phone) )
+  print("Valor Inserido: %s e %s" % ( name, phone ) )
 
- Teste(name,phone)
+
+ if function == 'rec':
+  print("Gravando %s, %s" % ( name, phone ) )
+ elif function == 'find':
+  Teste(name,phone)
+ else:
+  print("ERROR value not found")
 
 
 
@@ -64,10 +69,10 @@ class PhoneForm(Gtk.Window):
 
 
  def RecAct(self, button):
-  print("Rec")
+  ConnectDB('rec', self.NameEntry.get_text(), self.PhoneEntry.get_text() )
 
  def FindAct(self, button):
-  ConnectDB( self.NameEntry.get_text(), self.PhoneEntry.get_text() )
+  ConnectDB('find', self.NameEntry.get_text(), self.PhoneEntry.get_text() )
  
 
 Program = PhoneForm()
