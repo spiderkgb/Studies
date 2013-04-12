@@ -13,12 +13,23 @@ Created by Antonio Thomacelli Gomes
 """)
 
 
-def ConnectDB(option='none'):
- if ( option == 'create'):
-  DBconnect = sqlite3.connect('DBphonemanager.db')
-  DBcommand = DBconnect.cursor()
- else:
-  print('Oi')
+def ConnectDB(name='none', phone='none'):
+
+ def Teste(name, phone):
+  print("Valor Inserido: %s e %s" % ( name, phone) )
+
+ Teste(name,phone)
+
+
+
+# if ( option == 'create'):
+#  DBconnect = sqlite3.connect('DBphonemanager.db')
+#  DBcommand = DBconnect.cursor()
+#  Teste()
+# else:
+#  print('Oi')
+#  Teste()
+
 
 
 About()
@@ -35,13 +46,13 @@ class PhoneForm(Gtk.Window):
 
   NameLabel = Gtk.Label("Name: ")
   FormTable.attach( NameLabel, 0, 1, 0, 1 )
-  NameEntry = Gtk.Entry()
-  FormTable.attach( NameEntry, 1, 2, 0, 1 )
+  self.NameEntry = Gtk.Entry()
+  FormTable.attach( self.NameEntry, 1, 2, 0, 1 )
 
   PhoneLabel = Gtk.Label("Phone: ")
   FormTable.attach( PhoneLabel, 0, 1, 1, 2 )
-  PhoneEntry = Gtk.Entry()
-  FormTable.attach( PhoneEntry, 1, 2, 1, 2 )
+  self.PhoneEntry = Gtk.Entry()
+  FormTable.attach( self.PhoneEntry, 1, 2, 1, 2 )
 
   RecButton = Gtk.Button( label = " Record  " )
   RecButton.connect( "clicked",self.RecAct )
@@ -52,13 +63,12 @@ class PhoneForm(Gtk.Window):
   FormTable.attach( FindButton, 1, 2, 3, 4 )
 
 
-
  def RecAct(self, button):
   print("Rec")
 
  def FindAct(self, button):
-  ConnectDB('create')
-  print("Find")
+  ConnectDB( self.NameEntry.get_text(), self.PhoneEntry.get_text() )
+ 
 
 Program = PhoneForm()
 Program.connect("delete-event",Gtk.main_quit)
