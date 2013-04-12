@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import sqlite3
+from gi.repository import Gtk
+
 
 def About():
 	print("""
@@ -9,9 +12,17 @@ This program store name and phone.
 Created by Antonio Thomacelli Gomes
 """)
 
-print("This PhoneManager")
-from gi.repository import Gtk
 
+def ConnectDB(option='none'):
+ if ( option == 'create'):
+  DBconnect = sqlite3.connect('DBphonemanager.db')
+  DBcommand = DBconnect.cursor()
+ else:
+  print('Oi')
+
+
+About()
+####
 class PhoneForm(Gtk.Window):
  
  def __init__(self):
@@ -40,10 +51,13 @@ class PhoneForm(Gtk.Window):
   FindButton.connect( "clicked",self.FindAct )
   FormTable.attach( FindButton, 1, 2, 3, 4 )
 
+
+
  def RecAct(self, button):
   print("Rec")
 
  def FindAct(self, button):
+  ConnectDB('create')
   print("Find")
 
 Program = PhoneForm()
