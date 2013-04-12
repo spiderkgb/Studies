@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sqlite3
+import sqlite3, os
 from gi.repository import Gtk
 
 
@@ -12,29 +12,32 @@ This program store name and phone.
 Created by Antonio Thomacelli Gomes
 """)
 
+def ConnectDB(function='none',name_in='none', phone_in='none'):
+ DBconnect = sqlite3.connect('DBphonemanager.db')
+ DBcommand = DBconnect.cursor()
 
-def ConnectDB(function='none',name='none', phone='none'):
- def Teste(name, phone):
-  print("Valor Inserido: %s e %s" % ( name, phone ) )
+ def CreateDB():
+  DBcommand.execute('create table names(id integer primary key, name varchar(20), phone int(20);')
+
+ def RecDB( name_in, phone_in ):
+  print("Buscando %s e %s" % ( name_in, phone_in ) )
+  DBcommand.execute( "insert into names( name, phone ) values ('%s, %s');" % ( name_in, phone_in ) )
+
+ def FindDB( name_in, phone_in ):
+  print("Gravando %s, %s" % ( name_in, phone_in ) )
+  DBcommand.execute( "select * from names where name == '%s' " % name_in )
+  for line in DBcommand:
+   print( line )
 
 
  if function == 'rec':
-  print("Gravando %s, %s" % ( name, phone ) )
+  RecDB( name_in, phone_in )
+
  elif function == 'find':
-  Teste(name,phone)
+  FindDB( name_in, phone_in )
+
  else:
   print("ERROR value not found")
-
-
-
-# if ( option == 'create'):
-#  DBconnect = sqlite3.connect('DBphonemanager.db')
-#  DBcommand = DBconnect.cursor()
-#  Teste()
-# else:
-#  print('Oi')
-#  Teste()
-
 
 
 About()
