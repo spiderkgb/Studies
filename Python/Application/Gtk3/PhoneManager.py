@@ -32,11 +32,19 @@ def ConnectDB(function='none',name_in='none', phone_in='none'):
   DBconnect.commit()
 
  def FindDB( name_in, phone_in ):
-  print("Gravando %s, %s" % ( name_in, phone_in ) )
+  print("Procurando %s, %s" % ( name_in, phone_in ) )
   DBcommand.execute("select * from names where name = '%s' " % name_in )
-  for line in DBcommand:
-   print( line )
 
+  line = 'none'
+  for line in DBcommand:
+   if line == []:
+    print("No contact found!")
+    break;
+   else:
+    print( line )
+  if line == 'none':
+   print("Valor desconhecido")
+  
  if function == 'rec':
   RecDB( name_in, phone_in )
 
