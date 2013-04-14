@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Ultima edição 13/04/2013
 
 import sqlite3, os
 from gi.repository import Gtk
@@ -13,37 +12,39 @@ This program store name and phone.
 Created by Antonio Thomacelli Gomes
 """)
 
-def ConnectDB(function='none',name_in='none', phone_in='none'):
+def CreateDB():
  DBconnect = sqlite3.connect('DBphonemanager.db')
  DBcommand = DBconnect.cursor()
+ DBcommand.execute("create table names(id integer primary key, name varchar(20), phone int(20));")
 
- def CreateDB():
-  DBcommand.execute("create table names(id integer primary key, name varchar(20), phone int(20);")
-
- def RecDB( name_in, phone_in ):
-  print( "Buscando %s e %s" % ( name_in, phone_in ) )
-  DBcommand.execute( "insert into names( name, phone ) values ('%s, %s');" % ( name_in, phone_in ) )
-
- def FindDB( name_in, phone_in ):
-  print("Gravando %s, %s" % ( name_in, phone_in ) )
-  #DBcommand.execute("select * from names where name = '%s' " % name_in )
-  DBcommand.execute("select * from names" )
-  for line in DBcommand:
-   print( line )
+def ConnectDB(function='none',name_in='none', phone_in='none'):
 
  if os.path.exists('DBphonemanager.db'):
-  if function == 'rec':
-   RecDB( name_in, phone_in )
-
-  elif function == 'find':
-   FindDB( name_in, phone_in )
-
-  else:
-   print("ERROR value not found")
+  DBconnect = sqlite3.connect('DBphonemanager.db')
+  DBcommand = DBconnect.cursor()
 
  else:
   CreateDB()
 
+ def RecDB( name_in, phone_in ):
+  print( "Buscando %s e %s" % ( name_in, phone_in ) )
+  DBcommand.execute( "insert into names( name, phone ) values ('%s', '%s');" % ( name_in, phone_in ) )
+  DBconnect.commit()
+
+ def FindDB( name_in, phone_in ):
+  print("Gravando %s, %s" % ( name_in, phone_in ) )
+  DBcommand.execute("select * from names where name = '%s' " % name_in )
+  for line in DBcommand:
+   print( line )
+
+ if function == 'rec':
+  RecDB( name_in, phone_in )
+
+ elif function == 'find':
+  FindDB( name_in, phone_in )
+
+ else:
+  print("ERROR value not found")
 
 
 About()
