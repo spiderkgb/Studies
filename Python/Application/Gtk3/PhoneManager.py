@@ -27,7 +27,7 @@ def ConnectDB(function='none',name_in='none', phone_in='none'):
   CreateDB()
 
  def RecDB( name_in, phone_in ):
-  print( "Buscando %s e %s" % ( name_in, phone_in ) )
+  print( "Gravando %s e %s" % ( name_in, phone_in ) )
   DBcommand.execute( "insert into names( name, phone ) values ('%s', '%s');" % ( name_in, phone_in ) )
   DBconnect.commit()
 
