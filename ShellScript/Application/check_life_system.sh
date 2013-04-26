@@ -7,8 +7,46 @@
 #	http://www.linuxresort.blogspot.com.br
 ###
 
+###
+#	1 - Test ping
+#	2 - Check memory
+#	3 - Check disk
+#	4 - Check % CPU
+#	5 - Temperature CPU
+###
 
-ADDRESS="";
+ADDRESS_LOCAL="127.0.0.1";
+ADDRESS_GATEWAY="192.168.4.14";
+ADDRESS_DNS="192.168.4.15";
+
+###
+#	1/3 - Check ping Local
+
+        if [ `ping $ADDRESS_LOCAL -c 6 | grep 64 | wc -l` -ge 2 ];then
+		echo "Pingando $ADDRESS_LOCAL";
+	else
+		echo "ERRO $ADDRESS_LOCAL Inativo";
+	fi
+
+#       2/3 - Check ping dns
+
+        if [ `ping $ADDRESS_GATEWAYL -c 6 | grep 64 | wc -l` -ge 2 ];then
+                echo "Pingando $ADDRESS_GATEWAY";
+        else
+                echo "ERRO $ADDRESS_GATEWAY Inativo";
+        fi
+
+#       3/3 - Check ping DNS
+
+        if [ `ping $ADDRESS_DNS -c 6 | grep 64 | wc -l` -ge 2 ];then
+                echo "Pingando $ADDRESS_DNS";
+        else
+                echo "ERRO $ADDRESS_DNS Inativo";
+        fi
+
+### Fim teste ping
+
+
 
 
 
