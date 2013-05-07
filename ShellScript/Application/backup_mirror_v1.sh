@@ -24,28 +24,25 @@
 ###
 
 ADDRESS_LIST="./list.txt"; # <- Create a file with address/ip to check
-ADDRESS_FILE="/root/infra/backup/diario"; # <- Add address folder to creata a mirror/Backup
+ADDRESS_FILE="/home/infra/Test"; # <- Add address folder to creata a mirror/Backup
 TOTAL_ITEM_CHECK=`wc -l $ADDRESS_LIST | awk '{ print $1}'`; # Total itens have inside address list
-ADREESS_BKP=""; # <- Insert here address, if remote addres use 127.0.0.1:/folder/backup 
-DAY=`date +%d`;
-MONTH=`date +%m`;
-YEAR=`date +%Y`;
+ADDRESS_BKP="/home/infra/Temporario/Teste"; # <- Insert here address, if remote addres use 127.0.0.1:/folder/backup 
+#PORT="221"; # <- Change here the port will be used, default port is 22
 
 clear;
 for ((i=1; i<$TOTAL_ITEM_CHECK+1;i++))
 do
 	clear;
-	DESTINY=`sed -n $i' p;' $ADDRESS_LIST`;
+	TARGET=`sed -n $i' p;' $ADDRESS_LIST`;
 	STATUS="Offline";
 	echo "Checking $TARGET";
 	[ `ping $TARGET -c 6 | grep 64 | wc -l` -ge 2 ] && {
 		STATUS="Online";
         }
-	echo "$DESTINY : $STATUS";
+	echo "$TARGET : $STATUS";
 
-	rsync --partial -r --rsh='ssh -p221' --delete-excluded \
-	$TARGET:$ADDRESS_FILE $ADDRESS_BKP;
-
+	rsync --partial -r --rsh='ssh -p221' --delete-excluded $TARGET:$ADDRESS_FILE $ADDRESS_BKP;
+	sleep 2;
 done
 ###
 ####	End Script
