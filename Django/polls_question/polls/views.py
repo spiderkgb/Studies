@@ -1,7 +1,8 @@
 # Create your views here.
 from django.http import HttpResponse
 #from django.template import Context, loader
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 
 from polls.models import Poll
 
@@ -15,7 +16,7 @@ def index(request):
 
 def detail(request, poll_id):
  #try:
- # poll = Poll.objects.get(pk=poll_id)
+ #poll = Poll.objects.get(pk=poll_id)
  #except Poll.DoesNotExist:
  # raise Http404
  #return HttpResponse("You're looking at poll %s." % poll_id)
