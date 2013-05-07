@@ -27,7 +27,6 @@ ADDRESS_LIST="./list.txt"; # <- Create a file with address/ip to check
 ADDRESS_FILE="/home/infra/Test"; # <- Add address folder to creata a mirror/Backup
 TOTAL_ITEM_CHECK=`wc -l $ADDRESS_LIST | awk '{ print $1}'`; # Total itens have inside address list
 ADDRESS_BKP="/home/infra/Temporario/Teste"; # <- Insert here address, if remote addres use 127.0.0.1:/folder/backup 
-#PORT="221"; # <- Change here the port will be used, default port is 22
 
 clear;
 for ((i=1; i<$TOTAL_ITEM_CHECK+1;i++))
