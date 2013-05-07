@@ -37,7 +37,7 @@ do
         }
 	echo "$DESTINY : $STATUS";
 
-	rsync --partial -r --rsh='ssh -p221' --delete-excluded \\
+	rsync --partial -r --rsh='ssh -p221' --delete-excluded \
 	$TARGET:$ADDRESS_FILE $DESTINY:$ADDRESS_BKP;
 
 done
