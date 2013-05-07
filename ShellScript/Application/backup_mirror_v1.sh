@@ -11,19 +11,25 @@
 ####
 
 ###
-#	Start Variable
+#	Help
+###
+#	First  step - Create a file with address you like check line by line
+#	Second step - Run SchellScript
+#	( You can add backup_script to start with contrab )
+###
+
+
+###
+#	Start
 ###
 
 ADDRESS_LIST="./list.txt"; # <- Create a file with address/ip to check
 ADDRESS_FILE="/root/infra/backup/diario"; # <- Add address folder to creata a mirror/Backup
 TOTAL_ITEM_CHECK=`wc -l $ADDRESS_LIST | awk '{ print $1}'`; # Total itens have inside address list
+ADREESS_BKP=""; # <- Insert here address, if remote addres use 127.0.0.1:/folder/backup 
 DAY=`date +%d`;
 MONTH=`date +%m`;
 YEAR=`date +%Y`;
-
-
-###	End Variable
-####
 
 clear;
 for ((i=1; i<$TOTAL_ITEM_CHECK+1;i++))
@@ -38,7 +44,7 @@ do
 	echo "$DESTINY : $STATUS";
 
 	rsync --partial -r --rsh='ssh -p221' --delete-excluded \
-	$TARGET:$ADDRESS_FILE $DESTINY:$ADDRESS_BKP;
+	$TARGET:$ADDRESS_FILE $ADDRESS_BKP;
 
 done
 ###
