@@ -31,22 +31,15 @@ do
 	clear;
 	DESTINY=`sed -n $i' p;' $ADDRESS_LIST`;
 	STATUS="Offline";
-	echo "Checking $DESTINY";
-	[ `ping $DESTINY -c 6 | grep 64 | wc -l` -ge 2 ] && {
+	echo "Checking $TARGET";
+	[ `ping $TARGET -c 6 | grep 64 | wc -l` -ge 2 ] && {
 		STATUS="Online";
         }
 	echo "$DESTINY : $STATUS";
 
-	#[ $STATUS = "Online" ] && {
-	#	ssh root@$DESTINY '
-	#	ls /home/infra/backup/diario; # <- Change the address
-	#' ;
-        #
+	rsync --partial -r --rsh='ssh -p221' --delete-excluded \\
+	$TARGET:$ADDRESS_FILE $DESTINY:$ADDRESS_BKP;
 
-	rsync --partial -r --rsh='ssh -p221' --delete-excluded $DESTINY:$ADDRESS_FILE $
-
-	#[ ] && {}
-	#[ ] || {}	
 done
 ###
 ####	End Script
