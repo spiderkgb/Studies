@@ -14,9 +14,9 @@
 #	Start Variable
 ###
 
-ADDRESS_LIST="./list.txt"; # <- Create a file with address to check
-ADDRESS_FILE="/root/infra/backup/diario";
-TOTAL_ITEM_CHECK=`wc -l $ADDRESS_LIST | awk '{ print $1}'`;
+ADDRESS_LIST="./list.txt"; # <- Create a file with address/ip to check
+ADDRESS_FILE="/root/infra/backup/diario"; # <- Add address folder to creata a mirror/Backup
+TOTAL_ITEM_CHECK=`wc -l $ADDRESS_LIST | awk '{ print $1}'`; # Total itens have inside address list
 DAY=`date +%d`;
 MONTH=`date +%m`;
 YEAR=`date +%Y`;
@@ -37,13 +37,14 @@ do
         }
 	echo "$DESTINY : $STATUS";
 
-	[ $STATUS = "Online" ] && {
-		ssh root@$DESTINY '
+	#[ $STATUS = "Online" ] && {
+	#	ssh root@$DESTINY '
+	#	ls /home/infra/backup/diario; # <- Change the address
+	#' ;
+        #
 
-		ls /home/infra/backup/diario; # <- Change the address
+	rsync --partial -r --rsh='ssh -p221' --delete-excluded $DESTINY:$ADDRESS_FILE $
 
-		' ;
-        }
 	#[ ] && {}
 	#[ ] || {}	
 done
