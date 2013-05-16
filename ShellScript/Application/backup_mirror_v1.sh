@@ -17,7 +17,12 @@
 #	Second step - Run SchellScript
 #	( You can add backup_script to start with contrab )
 ###
-
+###
+#       How Create Confiance key SSH
+#       First  step - run command ssh-keygen
+#       Second step - take the key created in ~/.ssh/*.pub and send to target
+#       (Example: cat ~/.ssh/NAME_KEY.pub | ssh -p 22 root@ADDRESS 'cat >> /root/.ssh/authorized_keys')
+###
 
 ###
 #	Start
